@@ -22,20 +22,48 @@ CSS_SELECTOR = "css selector"
 class WebScrapper:
 
     def __init__(self):
-        # browser = webdriver.Chrome(executable_path="chromedriver_linux64/chromedriver")
-        browser = webdriver.Chrome(
+        self.driver = webdriver.Chrome(
             service=Service(ChromeDriverManager().install()))
-        browser.get(url)
 
-        header = browser.find_elements(By.CLASS_NAME, "BgYkof")
-        div = browser.find_elements(By.CLASS_NAME, "kixHKb")
+        # header = self.driver.find_elements(By.CLASS_NAME, "BgYkof")
+        # div = self.driver.find_elements(By.CLASS_NAME, "kixHKb")
 
-        for h in header:
-            print(h.text)
+    def GetUrl(self, url):
+        self.driver.get(url)
 
-        for d in div:
-            val = d.find_element(By.TAG_NAME, "span")
-            if "IDR" in val.text.split():
-                print(val.text)
+    # def initDriver(self):
+    #     try:
+    #         element = WebDriverWait(self.driver, 10).until(
+    #             EC.presence_of_element_located((By.ID, "myDynamicElement"))
+    #         )
+    #     finally:
+    #         self.driver.quit()
 
-        time.sleep(10)
+    def getElements(self, by, selector):
+        return self.driver.find_elements(by, selector)
+
+
+if __name__ == "__main__":
+
+    scrapper = WebScrapper()
+    scrapper.GetUrl(url)
+
+    time.sleep(40)
+    nama_hotel = []
+    harga_hotel = []
+    header = scrapper.getElements(By.CLASS_NAME, "BgYkof")
+
+    div = scrapper.getElements(By.CLASS_NAME, "kixHKb")
+
+    for h in header:
+        print(h.text)
+        nama_hotel.append(h.text)
+
+    for i, d in enumerate(div):
+        val = d.find_element(By.TAG_NAME, "span")
+        if "IDR" in val.text.split():
+            print(val.text)
+            harga_hotel.append(val.text)
+
+print(len(nama_hotel))
+print(len(harga_hotel))
