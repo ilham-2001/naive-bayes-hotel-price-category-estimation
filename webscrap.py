@@ -9,7 +9,7 @@ import time
 import pandas as pd
 import numpy as np
 
-url = "https://www.google.com/travel/hotels?q=harga%20hotel%20di%20jakarta&gsas=1&rp=CgpYAGAAcgQIAhgAOAGKAhZoYXJnYSBob3RlbCBkaSBqYWthcnRhqAIA&ved=0CAAQ5JsGahcKEwj467eKiPf4AhUAAAAAHQAAAAAQBA&hl=en-ID&gl=id&g2lb=2502548%2C2503771%2C2503781%2C4258168%2C4270442%2C4284970%2C4291517%2C4306835%2C4308226%2C4515404%2C4597339%2C4649665%2C4703207%2C4718358%2C4722900%2C4723331%2C4741665%2C4757164%2C4758493%2C4762561%2C4779784%2C4786958%2C4787395%2C4790928%2C4794648&utm_campaign=sharing&utm_medium=link&utm_source=htls&ts=CAESCgoCCAMKAggDEAAaKwoNEgk6B0pha2FydGEaABIaEhQKBwjmDxAHGBsSBwjmDxAHGBwYATICEAAqDgoKEgECKAE6A0lEUhoA&ap=MAFaowMKBgiA6jAQACIDSURSKhYKBwjmDxAHGBsSBwjmDxAHGBwYASgAsAEAWAFgAGgBcgQIAhgAmgEJEgdKYWthcnRhogETCggvbS8wNDRydhIHSmFrYXJ0YaoBLwoCCCESAggIEgIIZRICCBUSAggNEgIIZxICCFsSAggvEgIIWhIDCIwCEgIIIBgBqgEHCgMI5QEYAKoBEwoCCBISAwibARICCGgSAghpGAGqAQcKAwjhARgAqgEHCgMIoQIYAKoBBwoDCOQBGACqAQ4KAggcEgIIURICCEcYAaoBBwoDCOIBGACqARMKAgglEgMI2wISAgh1EgIIdhgBqgESCgIIERICCEASAgg4EgIIAhgBqgEHCgMIxQIYAKoBLQoCCC4SAgg8EgMIhwESAggaEgIISBIDCIECEgIIAxICCAwSAwiPARICCCcYAaoBDAoDCK4BEgMIrwEYAaoBCwoDCOECEgIIYxgBqgELCgIINRIDCJYBGAGSAgIIEpICAggRkgICCA6SAgIIE5ICAggMkgICCBCSAgIID5ICAggNkgICCBSSAQIgAQ"
+url = "https://www.google.com/travel/hotels?q=harga%20hotel%20di%20jakarta&gsas=1&rp=CgpYAGAAcgQIAhgAOAGKAhZoYXJnYSBob3RlbCBkaSBqYWthcnRhqAIA&ved=0CAAQ5JsGahcKEwjYudLgwff4AhUAAAAAHQAAAAAQAw&hl=en-ID&gl=id&g2lb=2502548%2C2503771%2C2503781%2C4258168%2C4270442%2C4284970%2C4291517%2C4306835%2C4308226%2C4515404%2C4597339%2C4649665%2C4703207%2C4718358%2C4722900%2C4723331%2C4741665%2C4757164%2C4758493%2C4762561%2C4779784%2C4786958%2C4787395%2C4790928%2C4794648&utm_campaign=sharing&utm_medium=link&utm_source=htls&ts=CAESCgoCCAMKAggDEAAaKwoNEgk6B0pha2FydGEaABIaEhQKBwjmDxAHGBsSBwjmDxAHGBwYATICEAAqEQoNEgQCAwQFKAE6A0lEUhoA&ap=MAFapwMKBgiA6jAQACIDSURSKhYKBwjmDxAHGBsSBwjmDxAHGBwYASgAOAI4BDgFsAEAWAFoAXIECAIYAJoBCRIHSmFrYXJ0YaIBEwoIL20vMDQ0cnYSB0pha2FydGGqAS8KAgghEgIICBICCGUSAggVEgIIDRICCGcSAghbEgIILxICCFoSAwiMAhICCCAYAaoBBwoDCOUBGACqARMKAggSEgMImwESAghoEgIIaRgBqgEHCgMI4QEYAKoBBwoDCKECGACqAQcKAwjkARgAqgEOCgIIHBICCFESAghHGAGqAQcKAwjiARgAqgETCgIIJRIDCNsCEgIIdRICCHYYAaoBEgoCCBESAghAEgIIOBICCAIYAaoBBwoDCMUCGACqAS0KAgguEgIIPBIDCIcBEgIIGhICCEgSAwiBAhICCAMSAggMEgMIjwESAggnGAGqAQwKAwiuARIDCK8BGAGqAQsKAwjhAhICCGMYAaoBCwoCCDUSAwiWARgBkgICCA6SAgIIEJICAggTkgICCA-SAgIIEpICAggRkgICCA2SAgIIDJICAggUkgECIAE"
 xpath = "/html/body/c-wiz[2]/div/div[2]/div/c-wiz/div[2]/div[2]/div[1]/div/main/div/c-wiz/div[1]/div[4]/c-wiz[5]/c-wiz/div/div/div/div[1]/div/div[1]/div[1]/div[1]/h2"
 
 ID = "id"
@@ -57,7 +57,7 @@ if __name__ == "__main__":
     scrapper = WebScrapper()
     scrapper.GetUrl(url)
 
-    time.sleep(35)
+    time.sleep(120)
     hotel = []
 
     cards = scrapper.getElements(By.CLASS_NAME, "pjDrrc")
@@ -114,6 +114,10 @@ if __name__ == "__main__":
         for fasil in fasilitas:
             facility.append(fasil.text)
 
+         # mencoba untuk mengambil bintang hotel
+        hotel_class = bottom_lhs1.find_element(By.CLASS_NAME, "UqrZme")
+        # print(hotel_class1.text)
+
         # right hand side
         rhs1 = element3.find_element(By.CLASS_NAME, "PwV1Ac")
         try:
@@ -123,7 +127,7 @@ if __name__ == "__main__":
         except Exception:
             harga = 0
 
-        hotel.append((nama_hotel.text, user_rate,
+        hotel.append((nama_hotel.text, hotel_class.text, user_rate,
                      rater_count, str(facility), harga))
 
     # for i, d in enumerate(div):
