@@ -5,8 +5,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
+import pandas as pd
+import numpy as np
 
-url = "https://www.google.com/travel/hotels/Yogyakarta%2C%20Yogyakarta%20City%2C%20Special%20Region%20of%20Yogyakarta?q=harga%20hotel%20di%20jogja&g2lb=2502548%2C2503771%2C2503781%2C4258168%2C4270442%2C4284970%2C4291517%2C4306835%2C4308226%2C4515404%2C4597339%2C4649665%2C4703207%2C4718358%2C4722900%2C4723331%2C4741665%2C4757164%2C4758493%2C4762561%2C4779784%2C4786958%2C4787395%2C4790928%2C4794648&hl=en-ID&gl=id&ssta=1&ts=CAESCgoCCAMKAggDEAAaXQo_Ejs6OVlvZ3lha2FydGEsIFlvZ3lha2FydGEgQ2l0eSwgU3BlY2lhbCBSZWdpb24gb2YgWW9neWFrYXJ0YRoAEhoSFAoHCOYPEAcYHBIHCOYPEAcYHRgBMgIQACoOCgoSAQMoAToDSURSGgA&rp=ogE5WW9neWFrYXJ0YSwgWW9neWFrYXJ0YSBDaXR5LCBTcGVjaWFsIFJlZ2lvbiBvZiBZb2d5YWthcnRhOAFAAEgC&ap=SAAwAVqpAgoGCIDqMBAAIgNJRFIqFgoHCOYPEAcYHBIHCOYPEAcYHRgBKACwAQBYAWgBcgQIAhgAmgE7EjlZb2d5YWthcnRhLCBZb2d5YWthcnRhIENpdHksIFNwZWNpYWwgUmVnaW9uIG9mIFlvZ3lha2FydGGiARcKCS9tLzBkZzZ5eBIKWW9neWFrYXJ0YaoBGwoCCCESAghlEgIIFRICCGcSAwiOARICCC8YAaoBBwoDCOUBGACqAQcKAwjhARgAqgEHCgMI5AEYAKoBBwoDCOIBGACqAQwKAwiuARIDCLIBGAGqAQsKAwjhAhICCGMYAaoBBwoDCOYBGACSAgIIEpICAggTkgICCBGSAgIIEJICAggPkgICCA6SAgIIDZICAggMkgICCBSSAQIgAWgA&ictx=1&utm_campaign=sharing&utm_medium=link&utm_source=htls&ved=0CAAQ5JsGahcKEwjos5mBjfH4AhUAAAAAHQAAAAAQBA"
+url = "https://www.google.com/travel/hotels?q=harga%20hotel%20di%20jakarta&gsas=1&rp=CgpYAGAAcgQIAhgAOAGKAhZoYXJnYSBob3RlbCBkaSBqYWthcnRhqAIA&ved=0CAAQ5JsGahcKEwj467eKiPf4AhUAAAAAHQAAAAAQBA&hl=en-ID&gl=id&g2lb=2502548%2C2503771%2C2503781%2C4258168%2C4270442%2C4284970%2C4291517%2C4306835%2C4308226%2C4515404%2C4597339%2C4649665%2C4703207%2C4718358%2C4722900%2C4723331%2C4741665%2C4757164%2C4758493%2C4762561%2C4779784%2C4786958%2C4787395%2C4790928%2C4794648&utm_campaign=sharing&utm_medium=link&utm_source=htls&ts=CAESCgoCCAMKAggDEAAaKwoNEgk6B0pha2FydGEaABIaEhQKBwjmDxAHGBsSBwjmDxAHGBwYATICEAAqDgoKEgEFKAE6A0lEUhoA&ap=MAFa9gIKBgiA6jAQACIDSURSKhYKBwjmDxAHGBsSBwjmDxAHGBwYASgAsAEAWAFgAGgBcgQIAhgAmgEJEgdKYWthcnRhogETCggvbS8wNDRydhIHSmFrYXJ0YaoBLwoCCCESAggIEgIIZRICCBUSAggNEgIIZxICCFsSAggvEgIIWhIDCIwCEgIIIBgBqgEHCgMI5QEYAKoBEwoCCBISAwibARICCGgSAghpGAGqAQcKAwjhARgAqgEHCgMIoQIYAKoBBwoDCOQBGACqAQ4KAggcEgIIURICCEcYAaoBBwoDCOIBGACqARMKAgglEgMI2wISAgh1EgIIdhgBqgESCgIIERICCEASAgg4EgIIAhgBqgEHCgMIxQIYAKoBLQoCCC4SAgg8EgMIhwESAggaEgIISBIDCIECEgIIAxICCAwSAwiPARICCCcYAaoBDAoDCK4BEgMIrwEYAaoBCwoDCOECEgIIYxgBqgELCgIINRIDCJYBGAGSAQIgAQ"
 xpath = "/html/body/c-wiz[2]/div/div[2]/div/c-wiz/div[2]/div[2]/div[1]/div/main/div/c-wiz/div[1]/div[4]/c-wiz[5]/c-wiz/div/div/div/div[1]/div/div[1]/div[1]/div[1]/h2"
 
 ID = "id"
@@ -42,28 +44,40 @@ class WebScrapper:
     def getElements(self, by, selector):
         return self.driver.find_elements(by, selector)
 
+    def toCSV(self, data):
+        pd.DataFrame(data).to_csv('hargaHotel.csv')
+
 
 if __name__ == "__main__":
 
     scrapper = WebScrapper()
     scrapper.GetUrl(url)
 
-    time.sleep(40)
-    nama_hotel = []
+    time.sleep(75)
+    # nama_hotel = []
     harga_hotel = []
     header = scrapper.getElements(By.CLASS_NAME, "BgYkof")
 
     div = scrapper.getElements(By.CLASS_NAME, "kixHKb")
 
-    for h in header:
-        print(h.text)
-        nama_hotel.append(h.text)
+    # for h in header:
+    #     print(h.text)
+    #     nama_hotel.append(h.text)
 
     for i, d in enumerate(div):
         val = d.find_element(By.TAG_NAME, "span")
         if "IDR" in val.text.split():
             print(val.text)
-            harga_hotel.append(val.text)
+            _, mun = val.text.split()
 
-print(len(nama_hotel))
-print(len(harga_hotel))
+            harga_hotel.append(int(mun.replace(",", "")))
+
+    # print(len(nama_hotel))
+    arr = np.asarray(harga_hotel)
+    scrapper.toCSV(arr)
+
+    # data = scrapper.getElements(By.CLASS_NAME, "XrXoS")
+
+
+# J2W8oe osw6J CiuVaf untuk nama dan review user
+# J2W8oe PwV1Ac BIjKEe untuk harga
