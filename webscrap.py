@@ -8,7 +8,7 @@ import time
 import pandas as pd
 import numpy as np
 
-url = "https://www.google.com/travel/hotels?q=harga%20hotel%20di%20surabaya&gsas=1&rp=CgpYAGAAcgQIAhgAOAGKAhdoYXJnYSBob3RlbCBkaSBzdXJhYmF5YagCAA&ved=0CAAQ5JsGahcKEwjwwdud3Pj4AhUAAAAAHQAAAAAQBA&hl=en-ID&gl=id&g2lb=2502548%2C2503771%2C2503781%2C4258168%2C4270442%2C4284970%2C4291517%2C4306835%2C4308226%2C4515404%2C4597339%2C4649665%2C4703207%2C4718358%2C4722900%2C4723331%2C4741665%2C4757164%2C4758493%2C4762561%2C4779784%2C4786958%2C4787395%2C4790928%2C4794648&utm_campaign=sharing&utm_medium=link&utm_source=htls&ts=CAESCgoCCAMKAggDEAAaLAoOEgo6CFN1cmFiYXlhGgASGhIUCgcI5g8QBxgWEgcI5g8QBxgXGAEyAhAAKg4KChIBAigBOgNJRFIaAA&ap=MAFaxAIKBgiA6jAQACIDSURSKhYKBwjmDxAHGBYSBwjmDxAHGBcYASgAOAI4A7ABAFgBYABoAXIECAIYAJoBChIIU3VyYWJheWGiARUKCS9tLzAxZjR4ZBIIU3VyYWJheWGqASMKAgghEgIIZRICCBUSAggNEgIIZxICCFsSAwiOARICCC8YAaoBBwoDCOUBGACqAQsKAggSEgMImwEYAaoBBwoDCOEBGACqAQoKAggcEgIIURgBqgEHCgMI4gEYAKoBCgoCCBESAgg4GAGqARsKAgguEgIIOhIDCIcBEgIIGhICCAwSAggnGAGqAQsKAwjhAhICCGMYAaoBBwoDCOMBGACqAQcKAwjmARgAqgELCgIINRIDCJYBGAGSAgIIEpICAggPkgICCA6SAgIIE5ICAggRkgICCBCSAgIIDJICAggUkgECIAE"
+url = "https://www.google.com/travel/hotels?q=harga%20hotel%20di%20bandung&gsas=1&rp=CgpYAGAAcgQIAhgAOAGKAhZoYXJnYSBob3RlbCBkaSBiYW5kdW5nqAIA&ved=0CAAQ5JsGahcKEwiA_vqI-fn4AhUAAAAAHQAAAAAQBA&hl=en-ID&gl=id&g2lb=2502548%2C2503771%2C2503781%2C4258168%2C4270442%2C4284970%2C4291517%2C4306835%2C4308226%2C4515404%2C4597339%2C4649665%2C4703207%2C4718358%2C4722900%2C4723331%2C4741665%2C4757164%2C4758493%2C4762561%2C4779784%2C4786958%2C4787395%2C4790928%2C4794648&utm_campaign=sharing&utm_medium=link&utm_source=htls&ts=CAESCgoCCAMKAggDEAAaKwoNEgk6B0JhbmR1bmcaABIaEhQKBwjmDxAHGBYSBwjmDxAHGBcYATICEAAqDgoKEgECKAE6A0lEUhoA&ap=EgRDUEFCMANaogIKBgiA6jAQACIDSURSKhYKBwjmDxAHGBYSBwjmDxAHGBcYASgAsAEAWAFoAXIECAIYAJoBCRIHQmFuZHVuZ6IBFAoJL20vMDF6bGw4EgdCYW5kdW5nqgEiCgIIIRICCGUSAggVEgIIDRICCGcSAghbEgIILxICCFoYAaoBBwoDCOUBGACqAQoKAggSEgIIaRgBqgEHCgMI4QEYAKoBCgoCCBwSAgg2GAGqAQcKAwjiARgAqgESCgIIERICCCoSAghAEgIIAhgBqgEYCgIILhICCFYSAwiHARIDCIEBEgIIDBgBqgELCgMI4QISAghjGAGSAgIIEpICAggOkgICCBOSAgIIEZICAggPkgICCBCSAgIIDZICAggMkgICCBSSAQIgAQ"
 xpath = "/html/body/c-wiz[2]/div/div[2]/div/c-wiz/div[2]/div[2]/div[1]/div/main/div/c-wiz/div[1]/div[4]/c-wiz[5]/c-wiz/div/div/div/div[1]/div/div[1]/div[1]/div[1]/h2"
 
 ID = "id"
@@ -45,7 +45,7 @@ class WebScrapper:
         return self.driver.find_element(by, selector)
 
     def toCSV(self, data):
-        pd.DataFrame(data).to_csv('harga_hotel_surabaya.csv')
+        pd.DataFrame(data).to_csv('bandung.csv')
 
 
 if __name__ == "__main__":
@@ -53,7 +53,7 @@ if __name__ == "__main__":
     scrapper = WebScrapper()
     scrapper.GetUrl(url)
 
-    time.sleep(30)
+    time.sleep(45)
     hotel = []
 
     cards = scrapper.getElements(By.CLASS_NAME, "pjDrrc")
