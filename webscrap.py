@@ -140,3 +140,6 @@ if __name__ == "__main__":
 
     arr = np.asarray(hotel)
     scrapper.toCSV(arr)
+
+
+
